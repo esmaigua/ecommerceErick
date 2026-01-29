@@ -1,0 +1,37 @@
+"use client"
+
+import {loadStripe} from '@stripe/stripe-js';
+import { CheckoutProvider } from '@stripe/react-stripe-js';
+import { useAuth } from '@clerk/nextjs';
+import { useEffect, useState } from 'react';
+import { ShippingFormInputs } from '@repo/types';
+import CheckoutForm from './CheckoutForm';
+
+const stripe = loadStripe("pk_test_51StU8iQKtAXw5GJ1wF7a81UB2BUA4NV0TaPUyczfGM2E30UKsxwCAYcNvPnEwPxP1kZGXaKjMRbXCL9aYyI5JD2V00v7SdsXbr");
+
+const fetchClientSecret = async (token:string) => {
+    return fetch(`${process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL}/sessions/create-checkout-session`, {method: 'POST'})
+    .then((response) => response.json())
+    .then((json) => json.checkoutSessionClientSecret);
+}
+
+const StripePaymentForm = ({shippingForm}:{shippingForm:ShippingFormInputs})=>{
+    const [token,setToken]= useState <string | null>(null)
+    const {getToken} = useAuth();
+
+    useEffect(()=>{
+        getToken().then((token)=>setToken(token))
+    },[])
+
+    if(!token){
+        return <div className=''>Loading...</div>
+    }
+    return (
+        <CheckoutProvider
+        stripe={stripe}
+        options={{ fetchClientSecret: () => fetchClientSecret(token) }}>
+        <CheckoutForm shippingForm={shippingForm} />
+        </CheckoutProvider>
+    )
+}
+export default StripePaymentForm
