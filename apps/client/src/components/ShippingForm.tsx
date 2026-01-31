@@ -103,6 +103,7 @@ const ShippingForm = ({
           id="city"
           placeholder="New York"
           {...register("city")}
+          value="Otavalo"
         />
         {errors.city && (
           <p className="text-xs text-red-500">{errors.city.message}</p>

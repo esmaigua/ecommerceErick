@@ -41,7 +41,7 @@ const products: ProductsType = [
     updatedAt: new Date(),    
   },
   {
-    id: 3,
+    id: 123,
     name: "Nike Air Essentials Pullover",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
