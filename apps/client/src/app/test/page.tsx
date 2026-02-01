@@ -1,36 +1,35 @@
 import { auth } from "@clerk/nextjs/server";
 
-const TestPage = async()=>{
-    const { getToken }= await auth()
-    const token = await getToken();
-    
-    console.log(token)
+const TestPage = async () => {
+  const { getToken } = await auth();
+  const token = await getToken();
 
-    const resProduct = await fetch("http://127.0.0.1:8000/test", {
-       headers: {
-         Authorization: `Bearer ${token}`,
-        },
-    });
-    const dataProduct = await resProduct.json();
-    console.log(dataProduct)
+  console.log(token)
 
-    const resOrder = await fetch("http://127.0.0.1:8001/test", {
-       headers: {
-         Authorization: `Bearer ${token}`,
-        },
-    });
-    const dataOrder = await resOrder.json();
-    console.log(dataOrder)
+  // const resProduct = await fetch("http://localhost:8000/test", {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+  // const dataProduct = await resProduct.json();
 
-    const resPayment = await fetch("http://127.0.0.1:8002/test", {
-       headers: {
-         Authorization: `Bearer ${token}`,
-        },
-    });
-    const dataPayment = await resPayment.json();
-    console.log(dataPayment)
 
-    return <div className="">TestPage</div>
+  // const resOrder = await fetch("http://localhost:8001/test", {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+  // const dataOrder = await resOrder.json();
+
+
+  // const resPayment = await fetch("http://localhost:8002/test", {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+  // const dataPayment = await resPayment.json();
+
+  return <div className="">TestPage</div>;
 };
 
 export default TestPage;

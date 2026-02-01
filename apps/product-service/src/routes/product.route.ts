@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from "../controllers/product.controller";
-import { shouldBeAdmin } from "../middleware/authMiddleware";
+import { shouldBeAdmin, shouldBeUser } from "../middleware/authMiddleware";
 
 const router: Router = Router();
 
-router.post("/", shouldBeAdmin, createProduct)
+router.post("/", shouldBeUser, createProduct)
 
 router.put("/:id", shouldBeAdmin, updateProduct)
 
